@@ -3,14 +3,15 @@
 #define ETL_STL_ALTERNATE_FUNCTIONAL_INCLUDED
 
 #include "../../platform.h"
+#include "choose_namespace.h"
 
-namespace etlstd
+namespace ETLSTD
 {
   //***************************************************************************
   template <typename T = void>
   struct less
   {
-    ETL_CONSTEXPR_11 bool operator()(const T &lhs, const T &rhs) const
+    ETL_CONSTEXPR bool operator()(const T &lhs, const T &rhs) const
     {
       return lhs < rhs;
     }
@@ -20,7 +21,7 @@ namespace etlstd
   template <typename T = void>
   struct greater
   {
-    ETL_CONSTEXPR_11 bool operator()(const T &lhs, const T &rhs) const
+    ETL_CONSTEXPR bool operator()(const T &lhs, const T &rhs) const
     {
       return lhs > rhs;
     }
@@ -30,7 +31,7 @@ namespace etlstd
   template <typename T = void>
   struct equal_to
   {
-    ETL_CONSTEXPR_11 bool operator()(const T &lhs, const T &rhs) const
+    ETL_CONSTEXPR bool operator()(const T &lhs, const T &rhs) const
     {
       return lhs == rhs;
     }
@@ -40,7 +41,7 @@ namespace etlstd
   template <typename T = void>
   struct not_equal_to
   {
-    ETL_CONSTEXPR_11 bool operator()(const T &lhs, const T &rhs) const
+    ETL_CONSTEXPR bool operator()(const T &lhs, const T &rhs) const
     {
       return lhs != rhs;
     }
@@ -68,7 +69,7 @@ namespace etlstd
   //***************************************************************************
 
   template <typename TFunction>
-  class binder1st : public etlstd::unary_function<typename TFunction::second_argument_type, typename TFunction::result_type>
+  class binder1st : public ETLSTD::unary_function<typename TFunction::second_argument_type, typename TFunction::result_type>
   {
   protected:
 
@@ -102,7 +103,7 @@ namespace etlstd
   //***************************************************************************
 
   template <typename TFunction >
-  class binder2nd : public etlstd::unary_function<typename TFunction::first_argument_type, typename TFunction::result_type>
+  class binder2nd : public ETLSTD::unary_function<typename TFunction::first_argument_type, typename TFunction::result_type>
   {
   protected:
     TFunction operation;
