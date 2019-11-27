@@ -33,7 +33,9 @@ SOFTWARE.
 
 #if !defined(ETL_COMPILER_GCC) && \
     !defined(ETL_COMPILER_MICROSOFT) && \
-    !defined(ETL_COMPILER_ARM) && \
+    !defined(ETL_COMPILER_ARM5) && \
+    !defined(ETL_COMPILER_ARM6) && \
+    !defined(ETL_COMPILER_ARM7) && \
     !defined(ETL_COMPILER_CLANG) && \
     !defined(ETL_COMPILER_GREEN_HILLS) && \
     !defined(ETL_COMPILER_IAR) && \
@@ -41,42 +43,79 @@ SOFTWARE.
     !defined(ETL_COMPILER_TEXAS_INSTRUMENTS) && \
     !defined(ETL_COMPILER_GENERIC)
 
-  #if !defined(ETL_COMPILER_GCC)
-    #if defined(__GNUC__)
-      #define ETL_COMPILER_GCC
-    #endif
-  #elif !defined(ETL_COMPILER_MICROSOFT)
-    #if defined(_MSC_VER)
-      #define ETL_COMPILER_MICROSOFT
-    #endif
-  #elif !defined(ETL_COMPILER_ARM)
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_ARM5)
     #if defined(__CC_ARM)
-      #define ETL_COMPILER_ARM
+      #define ETL_COMPILER_ARM5
+      #define ETL_COMPILER_TYPE_DETECTED
     #endif
-  #elif !defined(ETL_COMPILER_CLANG)
-    #if defined(__clang__) || defined(__llvm__)
-      #define ETL_COMPILER_CLANG
-    #endif
-  #elif !defined(ETL_COMPILER_GREEN_HILLS)
-    #if defined(__ghs__)
-      #define ETL_COMPILER_GREEN_HILLS
-    #endif
-  #elif !defined(ETL_COMPILER_IAR)
-    #if defined(__IAR_SYSTEMS_ICC__)
-      #define ETL_COMPILER_IAR
-    #endif
-  #elif !defined(ETL_COMPILER_INTEL)
-    #if defined(__INTEL_COMPILER)
-      #define ETL_COMPILER_INTEL
-    #endif
-  #elif !defined(ETL_COMPILER_TEXAS_INSTRUMENTS)
-    #if defined(__TI_COMPILER_VERSION__)
-      #define ETL_COMPILER_TEXAS_INSTRUMENTS
-    #endif
-  #else
-    #define ETL_COMPILER_GENERIC
   #endif
 
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_ARM6)
+    #if defined(__ARMCOMPILER_VERSION) && (__ARMCOMPILER_VERSION >= 6000000L) && (__ARMCOMPILER_VERSION < 7000000L)
+      #define ETL_COMPILER_ARM6
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_ARM7)
+    #if defined(__ARMCOMPILER_VERSION) && (__ARMCOMPILER_VERSION >= 7000000L) && (__ARMCOMPILER_VERSION < 8000000L)
+      #define ETL_COMPILER_ARM7
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_GCC)
+    #if defined(__GNUC__)
+      #define ETL_COMPILER_GCC
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_MICROSOFT)
+    #if defined(_MSC_VER)
+      #define ETL_COMPILER_MICROSOFT
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_CLANG)
+    #if defined(__clang__) || defined(__llvm__)
+      #define ETL_COMPILER_CLANG
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_GREEN_HILLS)
+    #if defined(__ghs__)
+      #define ETL_COMPILER_GREEN_HILLS
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_IAR)
+    #if defined(__IAR_SYSTEMS_ICC__)
+      #define ETL_COMPILER_IAR
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_INTEL)
+    #if defined(__INTEL_COMPILER)
+      #define ETL_COMPILER_INTEL
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED) && !defined(ETL_COMPILER_TEXAS_INSTRUMENTS)
+    #if defined(__TI_COMPILER_VERSION__)
+      #define ETL_COMPILER_TEXAS_INSTRUMENTS
+      #define ETL_COMPILER_TYPE_DETECTED
+    #endif
+  #endif
+
+  #if !defined(ETL_COMPILER_TYPE_DETECTED)
+    #define ETL_COMPILER_GENERIC
+  #endif
 #endif
 
 #endif

@@ -128,10 +128,6 @@ int main()
   LED_Initialize();
   Buttons_Initialize();
 
-  long int v = __cplusplus;
-  
-  char16_t c16;
-  
   int* p = nullptr;
   
   // The LEDs will start flashing fast after 2 seconds.

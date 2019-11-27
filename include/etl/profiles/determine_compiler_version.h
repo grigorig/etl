@@ -38,9 +38,15 @@ SOFTWARE.
   #elif defined(ETL_COMPILER_MICROSOFT)
     #define ETL_COMPILER_VERSION      _MSC_VER
     #define ETL_COMPILER_FULL_VERSION _MSC_FULL_VER
-  #elif defined(ETL_COMPILER_ARM)
+  #elif defined(ETL_COMPILER_ARM5)
     #define ETL_COMPILER_VERSION      __ARMCC_VERSION
     #define ETL_COMPILER_FULL_VERSION __ARMCC_VERSION
+  #elif defined(ETL_COMPILER_ARM6)
+    #define ETL_COMPILER_VERSION      __ARMCOMPILER_VERSION
+    #define ETL_COMPILER_FULL_VERSION __ARMCOMPILER_VERSION
+  #elif defined(ETL_COMPILER_ARM7)
+    #define ETL_COMPILER_VERSION      __ARMCOMPILER_VERSION
+    #define ETL_COMPILER_FULL_VERSION __ARMCOMPILER_VERSION
   #elif defined(ETL_COMPILER_CLANG)
     #define ETL_COMPILER_VERSION      __clang_version__
     #define ETL_COMPILER_FULL_VERSION ((__clang_major__ * 10000) + (__clang_minor__ * 100) + __clang_patchlevel__)

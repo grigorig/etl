@@ -31,8 +31,26 @@ SOFTWARE.
 #ifndef ETL_DETERMINE_COMPILER_LANGUAGE_SUPPORT_H_INCLUDED
 #define ETL_DETERMINE_COMPILER_LANGUAGE_SUPPORT_H_INCLUDED
 
-#define ETL_CPP11_SUPPORTED 0
-#define ETL_CPP14_SUPPORTED 0
-#define ETL_CPP17_SUPPORTED 0
+#ifdef __cplusplus
+  #if !defined(ETL_CPP11_SUPPORTED) || !defined(ETL_CPP14_SUPPORTED) || !defined(ETL_CPP17_SUPPORTED)
+    #if defined(ETL_COMPILER_MICROSOFT)
+      #define ETL_CPP11_SUPPORTED (_MSC_VER >= 1600)
+      #define ETL_CPP14_SUPPORTED (_MSC_VER >= 1900)
+      #define ETL_CPP17_SUPPORTED (_MSC_VER >= 1914)
+    #elif defined(ETL_COMPILER_ARM5)
+      #define ETL_CPP11_SUPPORTED 0
+      #define ETL_CPP14_SUPPORTED 0
+      #define ETL_CPP17_SUPPORTED 0
+    #else
+      #define ETL_CPP11_SUPPORTED (__cplusplus >= 201103L)
+      #define ETL_CPP14_SUPPORTED (__cplusplus >= 201402L)
+      #define ETL_CPP17_SUPPORTED (__cplusplus >= 201703L)
+    #endif
+  #else
+    #define ETL_CPP11_SUPPORTED 0
+    #define ETL_CPP14_SUPPORTED 0
+    #define ETL_CPP17_SUPPORTED 0
+  #endif
+#endif
 
 #endif
