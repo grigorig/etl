@@ -37,9 +37,7 @@ SOFTWARE.
 #include <string.h>
 #include "../../type_traits.h"
 
-#include "choose_namespace.h"
-
-namespace ETLSTD
+namespace etlstd
 {
   //***************************************************************************
   // iterator
@@ -98,11 +96,11 @@ namespace ETLSTD
   template <typename TIterator, typename TDistance>
   void advance(TIterator& itr, TDistance n)
   {
-    advance_helper(itr, n, typename ETLSTD::iterator_traits<TIterator>::iterator_category());
+    advance_helper(itr, n, typename etlstd::iterator_traits<TIterator>::iterator_category());
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, ETLSTD::input_iterator_tag)
+  void advance_helper(TIterator& itr, TDistance n, etlstd::input_iterator_tag)
   {
     while (n--)
     {
@@ -111,7 +109,7 @@ namespace ETLSTD
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, ETLSTD::output_iterator_tag)
+  void advance_helper(TIterator& itr, TDistance n, etlstd::output_iterator_tag)
   {
     while (n--)
     {
@@ -120,7 +118,7 @@ namespace ETLSTD
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, ETLSTD::forward_iterator_tag)
+  void advance_helper(TIterator& itr, TDistance n, etlstd::forward_iterator_tag)
   {
     while (n--)
     {
@@ -129,7 +127,7 @@ namespace ETLSTD
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, ETLSTD::bidirectional_iterator_tag)
+  void advance_helper(TIterator& itr, TDistance n, etlstd::bidirectional_iterator_tag)
   {
     if (n > 0)
     {
@@ -148,7 +146,7 @@ namespace ETLSTD
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, ETLSTD::random_access_iterator_tag)
+  void advance_helper(TIterator& itr, TDistance n, etlstd::random_access_iterator_tag)
   {
     itr += n;
   }
@@ -156,15 +154,15 @@ namespace ETLSTD
   //***************************************************************************
   // distance
   template<typename TIterator>
-  typename ETLSTD::iterator_traits<TIterator>::difference_type distance(TIterator first, TIterator last)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance(TIterator first, TIterator last)
   {
-    return distance_helper(first, last, typename ETLSTD::iterator_traits<TIterator>::iterator_category());
+    return distance_helper(first, last, typename etlstd::iterator_traits<TIterator>::iterator_category());
   }
 
   template<typename TIterator>
-  typename ETLSTD::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETLSTD::input_iterator_tag)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, etlstd::input_iterator_tag)
   {
-    typename ETLSTD::iterator_traits<TIterator>::difference_type d = 0;
+    typename etlstd::iterator_traits<TIterator>::difference_type d = 0;
 
     while (first != last)
     {
@@ -176,9 +174,9 @@ namespace ETLSTD
   }
 
   template<typename TIterator>
-  typename ETLSTD::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETLSTD::forward_iterator_tag)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, etlstd::forward_iterator_tag)
   {
-    typename ETLSTD::iterator_traits<TIterator>::difference_type d = 0;
+    typename etlstd::iterator_traits<TIterator>::difference_type d = 0;
 
     while (first != last)
     {
@@ -190,9 +188,9 @@ namespace ETLSTD
   }
 
   template<typename TIterator>
-  typename ETLSTD::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETLSTD::bidirectional_iterator_tag)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, etlstd::bidirectional_iterator_tag)
   {
-    typename ETLSTD::iterator_traits<TIterator>::difference_type d = 0;
+    typename etlstd::iterator_traits<TIterator>::difference_type d = 0;
 
     while (first != last)
     {
@@ -204,7 +202,7 @@ namespace ETLSTD
   }
 
   template<typename TIterator>
-  typename ETLSTD::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETLSTD::random_access_iterator_tag)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, etlstd::random_access_iterator_tag)
   {
     return last - first;
   }
@@ -216,11 +214,11 @@ namespace ETLSTD
   {
   public:
 
-    typedef typename ETLSTD::iterator_traits<TIterator>::difference_type   difference_type;
-    typedef typename ETLSTD::iterator_traits<TIterator>::value_type        value_type;
-    typedef typename ETLSTD::iterator_traits<TIterator>::pointer           pointer;
-    typedef typename ETLSTD::iterator_traits<TIterator>::reference         reference;
-    typedef typename ETLSTD::iterator_traits<TIterator>::iterator_category iterator_category;
+    typedef typename etlstd::iterator_traits<TIterator>::difference_type   difference_type;
+    typedef typename etlstd::iterator_traits<TIterator>::value_type        value_type;
+    typedef typename etlstd::iterator_traits<TIterator>::pointer           pointer;
+    typedef typename etlstd::iterator_traits<TIterator>::reference         reference;
+    typedef typename etlstd::iterator_traits<TIterator>::iterator_category iterator_category;
 
     reverse_iterator()
     {
@@ -338,6 +336,12 @@ namespace ETLSTD
   }
 
   template <class TIterator>
+  inline bool operator ==(const reverse_iterator<TIterator>& lhs, const reverse_iterator<TIterator>& rhs)
+  {
+    return lhs.base() == rhs.base();
+  }
+
+  template <class TIterator>
   inline bool operator !=(const reverse_iterator<TIterator>& lhs, const reverse_iterator<TIterator>& rhs)
   {
     return !(lhs == rhs);
@@ -376,18 +380,18 @@ namespace ETLSTD
   //***************************************************************************
   // Previous
   template<typename TIterator>
-  TIterator prev(TIterator itr, typename ETLSTD::iterator_traits<TIterator>::difference_type n = 1)
+  TIterator prev(TIterator itr, typename etlstd::iterator_traits<TIterator>::difference_type n = 1)
   {
-    ETLSTD::advance(itr, -n);
+    etlstd::advance(itr, -n);
     return itr;
   }
 
   //***************************************************************************
   // Next
   template<typename TIterator>
-  TIterator next(TIterator itr, typename ETLSTD::iterator_traits<TIterator>::difference_type n = 1)
+  TIterator next(TIterator itr, typename etlstd::iterator_traits<TIterator>::difference_type n = 1)
   {
-    ETLSTD::advance(itr, n);
+    etlstd::advance(itr, n);
     return itr;
   }
 }

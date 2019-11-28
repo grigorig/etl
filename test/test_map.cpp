@@ -243,13 +243,14 @@ namespace
       CHECK(!data.empty());
     }
 
+#if !defined(ETL_NO_STL)
     //*************************************************************************
     TEST_FIXTURE(SetupFixture, test_constructor_initializer_list)
     {
-      Compare_Data compare_data = { Data::value_type(std::string("0"), 0), Data::value_type(std::string("1"), 1), 
+      Compare_Data compare_data = { Data::value_type(std::string("0"), 0), Data::value_type(std::string("1"), 1),
                                     Data::value_type(std::string("2"), 2), Data::value_type(std::string("3"), 3) };
 
-      Data data = { Data::value_type(std::string("0"), 0), Data::value_type(std::string("1"), 1), 
+      Data data = { Data::value_type(std::string("0"), 0), Data::value_type(std::string("1"), 1),
                     Data::value_type(std::string("2"), 2), Data::value_type(std::string("3"), 3) };
 
       CHECK_EQUAL(compare_data.size(), data.size());
@@ -261,6 +262,7 @@ namespace
 
       CHECK(isEqual);
     }
+#endif
 
     //*************************************************************************
     TEST_FIXTURE(SetupFixture, test_assignment)

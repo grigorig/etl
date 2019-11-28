@@ -45,31 +45,31 @@ namespace etl
   template <typename T>
   struct is_input_iterator
   {
-    static const bool value = etl::is_same<typename std::iterator_traits<T>::iterator_category, std::input_iterator_tag>::value;
+    static const bool value = etl::is_same<typename ETL_STD::iterator_traits<T>::iterator_category, ETL_INPUT_ITERATOR_TAG>::value;
   };
 
   template <typename T>
   struct is_output_iterator
   {
-    static const bool value = etl::is_same<typename std::iterator_traits<T>::iterator_category, std::output_iterator_tag>::value;
+    static const bool value = etl::is_same<typename ETL_STD::iterator_traits<T>::iterator_category, ETL_OUTPUT_ITERATOR_TAG>::value;
   };
 
   template <typename T>
   struct is_forward_iterator
   {
-    static const bool value = etl::is_same<typename std::iterator_traits<T>::iterator_category, std::forward_iterator_tag>::value;
+    static const bool value = etl::is_same<typename ETL_STD::iterator_traits<T>::iterator_category, ETL_FORWARD_ITERATOR_TAG>::value;
   };
 
   template <typename T>
   struct is_bidirectional_iterator
   {
-    static const bool value = etl::is_same<typename std::iterator_traits<T>::iterator_category, std::bidirectional_iterator_tag>::value;
+    static const bool value = etl::is_same<typename ETL_STD::iterator_traits<T>::iterator_category, ETL_BIDIRECTIONAL_ITERATOR_TAG>::value;
   };
 
   template <typename T>
   struct is_random_iterator
   {
-    static const bool value = etl::is_same<typename std::iterator_traits<T>::iterator_category, std::random_access_iterator_tag>::value;
+    static const bool value = etl::is_same<typename ETL_STD::iterator_traits<T>::iterator_category, ETL_RANDOM_ACCESS_ITERATOR_TAG>::value;
   };
 
   template <typename T>

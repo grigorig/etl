@@ -109,7 +109,7 @@ namespace etl
     typedef const T&                              const_reference;
     typedef const T*                              const_pointer;
     typedef const T*                              const_iterator;
-    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef ETL_STD::reverse_iterator<const_iterator> const_reverse_iterator;
 
     enum
     {

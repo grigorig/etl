@@ -67,10 +67,10 @@ namespace etl
     typedef const value_type*                     const_pointer;
     typedef value_type*                           iterator;
     typedef const value_type*                     const_iterator;
-    typedef std::reverse_iterator<iterator>       reverse_iterator;
-    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef ETL_STD::reverse_iterator<iterator>       reverse_iterator;
+    typedef ETL_STD::reverse_iterator<const_iterator> const_reverse_iterator;
     typedef size_t                                size_type;
-    typedef std::iterator_traits<iterator>::difference_type difference_type;
+    typedef ETL_STD::iterator_traits<iterator>::difference_type difference_type;
 
   public:
 

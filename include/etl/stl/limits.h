@@ -33,6 +33,8 @@ SOFTWARE.
 
 #include "../platform.h"
 
+#include "choose_namespace.h"
+
 #if defined(ETL_NO_STL)
   #include "alternate/limits.h"
 #else

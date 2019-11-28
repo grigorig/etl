@@ -36,15 +36,13 @@ SOFTWARE.
 #include "../../char_traits.h"
 #include "../../integral_limits.h"
 
-#include "choose_namespace.h"
-
 #include <limits.h>
 #include <stdint.h>
 #include <float.h>
 
 #define ETL_LOG2(x) (((x) * 301) / 1000)
 
-namespace ETLSTD
+namespace etlstd
 {
   template<class T> class numeric_limits;
 

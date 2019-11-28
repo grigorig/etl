@@ -119,7 +119,7 @@ namespace etl
   public:
 
     //*************************************************************************
-    class iterator : public std::iterator<std::bidirectional_iterator_tag, value_type>
+    class iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
     {
     public:
 
@@ -217,7 +217,7 @@ namespace etl
     };
 
     //*************************************************************************
-    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const value_type>
+    class const_iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
     {
     public:
 
@@ -316,9 +316,9 @@ namespace etl
 
   public:
 
-    typedef std::reverse_iterator<iterator>       reverse_iterator;
-    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-    typedef typename std::iterator_traits<iterator>::difference_type difference_type;
+    typedef ETL_STD::reverse_iterator<iterator>       reverse_iterator;
+    typedef ETL_STD::reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef typename ETL_STD::iterator_traits<iterator>::difference_type difference_type;
 
     //*********************************************************************
     /// Returns an iterator to the beginning of the reference_flat_multiset.
@@ -456,9 +456,9 @@ namespace etl
     /// If asserts or exceptions are enabled, emits reference_flat_multiset_full if the reference_flat_multiset is already full.
     ///\param value    The value to insert.
     //*********************************************************************
-    std::pair<iterator, bool> insert(value_type& value)
+    ETL_PAIR<iterator, bool> insert(value_type& value)
     {
-      std::pair<iterator, bool> result(end(), false);
+      ETL_PAIR<iterator, bool> result(end(), false);
 
       ETL_ASSERT(!lookup.full(), ETL_ERROR(flat_multiset_full));
 
@@ -516,7 +516,7 @@ namespace etl
     //*********************************************************************
     size_t erase(parameter_t key)
     {
-      std::pair<iterator, iterator> range = equal_range(key);
+      ETL_PAIR<iterator, iterator> range = equal_range(key);
 
       if (range.first == end())
       {
@@ -614,7 +614,7 @@ namespace etl
     //*********************************************************************
     size_t count(parameter_t key) const
     {
-      std::pair<const_iterator, const_iterator> range = equal_range(key);
+      ETL_PAIR<const_iterator, const_iterator> range = equal_range(key);
 
       return std::distance(range.first, range.second);
     }
@@ -664,7 +664,7 @@ namespace etl
     ///\param key The key to search for.
     ///\return An iterator pair.
     //*********************************************************************
-    std::pair<iterator, iterator> equal_range(parameter_t key)
+    ETL_PAIR<iterator, iterator> equal_range(parameter_t key)
     {
       return std::equal_range(begin(), end(), key, compare);
     }
@@ -674,7 +674,7 @@ namespace etl
     ///\param key The key to search for.
     ///\return An iterator pair.
     //*********************************************************************
-    std::pair<const_iterator, const_iterator> equal_range(parameter_t key) const
+    ETL_PAIR<const_iterator, const_iterator> equal_range(parameter_t key) const
     {
       return std::equal_range(begin(), end(), key, compare);
     }
@@ -748,9 +748,9 @@ namespace etl
     ///\param i_element The place to insert.
     ///\param value     The value to insert.
     //*********************************************************************
-    std::pair<iterator, bool> insert_at(iterator i_element, reference value)
+    ETL_PAIR<iterator, bool> insert_at(iterator i_element, reference value)
     {
-      std::pair<iterator, bool> result(end(), false);
+      ETL_PAIR<iterator, bool> result(end(), false);
 
       if (i_element == end())
       {

@@ -37,17 +37,16 @@ SOFTWARE.
 
 #include "../../type_traits.h"
 
-#include "choose_namespace.h"
 #include "iterator.h"
 #include "functional.h"
 #include "utility.h"
 
-namespace ETLSTD
+namespace etlstd
 {
   //***************************************************************************
   // advance
   template <typename TIterator, typename TDistance>
-  typename etl::enable_if<!etl::is_same<typename ETLSTD::iterator_traits<TIterator>::iterator_tag, ETLSTD::random_access_iterator_tag>::value, void>::type
+  typename etl::enable_if<!etl::is_same<typename etlstd::iterator_traits<TIterator>::iterator_tag, etlstd::random_access_iterator_tag>::value, void>::type
     advance(TIterator itr, TDistance distance)
   {
     while (distance-- != 0)
@@ -57,7 +56,7 @@ namespace ETLSTD
   }
 
   template <typename TIterator, typename TDistance>
-  typename etl::enable_if<etl::is_same<typename ETLSTD::iterator_traits<TIterator>::iterator_tag, ETLSTD::random_access_iterator_tag>::value, void>::type
+  typename etl::enable_if<etl::is_same<typename etlstd::iterator_traits<TIterator>::iterator_tag, etlstd::random_access_iterator_tag>::value, void>::type
     advance(TIterator itr, TDistance distance)
   {
     return itr += distance;
@@ -69,10 +68,10 @@ namespace ETLSTD
   template <typename TIterator1, typename TIterator2>
   typename etl::enable_if<etl::is_pointer<TIterator1>::value &&
                           etl::is_pointer<TIterator2>::value &&
-                          etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
+                          etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
     copy(TIterator1 sb, TIterator1 se, TIterator2 db)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator1>::value_type value_t;
+    typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
 
     return TIterator2(memcpy(db, sb, sizeof(value_t) * (se - sb)));
   }
@@ -81,7 +80,7 @@ namespace ETLSTD
   template <typename TIterator1, typename TIterator2>
   typename etl::enable_if<!etl::is_pointer<TIterator1>::value ||
                           !etl::is_pointer<TIterator2>::value ||
-                          !etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
+                          !etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
     copy(TIterator1 sb, TIterator1 se, TIterator2 db)
   {
     while (sb != se)
@@ -98,10 +97,10 @@ namespace ETLSTD
   template <typename TIterator1, typename TSize, typename TIterator2>
   typename etl::enable_if<etl::is_pointer<TIterator1>::value &&
                           etl::is_pointer<TIterator2>::value &&
-                          etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
+                          etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
     copy_n(TIterator1 sb, TSize count, TIterator2 db)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator1>::value_type value_t;
+    typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
 
     return TIterator2(memcpy(db, sb, sizeof(value_t) * count));
   }
@@ -110,7 +109,7 @@ namespace ETLSTD
   template <typename TIterator1, typename TSize, typename TIterator2>
   typename etl::enable_if<!etl::is_pointer<TIterator1>::value ||
                           !etl::is_pointer<TIterator2>::value ||
-                          !etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
+                          !etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
     copy_n(TIterator1 sb, TSize count, TIterator2 db)
   {
     while (count != 0)
@@ -128,10 +127,10 @@ namespace ETLSTD
   template <typename TIterator1, typename TIterator2>
   typename etl::enable_if<etl::is_pointer<TIterator1>::value &&
                           etl::is_pointer<TIterator2>::value &&
-                          etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
+                          etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
     copy_backward(TIterator1 sb, TIterator1 se, TIterator2 de)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator1>::value_type value_t;
+    typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
 
     const size_t length = (se - sb);
 
@@ -142,7 +141,7 @@ namespace ETLSTD
   template <typename TIterator1, typename TIterator2>
   typename etl::enable_if<!etl::is_pointer<TIterator1>::value ||
                           !etl::is_pointer<TIterator2>::value ||
-                          !etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
+                          !etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, TIterator2>::type
     copy_backward(TIterator1 sb, TIterator1 se, TIterator2 de)
   {
     while (se != sb)
@@ -160,7 +159,7 @@ namespace ETLSTD
   {
     while (sb != se)
     {
-      *db++ = ETLSTD::move(*sb++);
+      *db++ = etlstd::move(*sb++);
     }
 
     return db;
@@ -173,7 +172,7 @@ namespace ETLSTD
   {
     while (sb != se)
     {
-      *(--de) = ETLSTD::move(*(--se));
+      *(--de) = etlstd::move(*(--se));
     }
 
     return de;
@@ -184,16 +183,16 @@ namespace ETLSTD
   template<typename TIterator, typename TValue, typename TCompare>
   TIterator lower_bound(TIterator first, TIterator last, const TValue& value, TCompare compare)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator>::difference_type difference_t;
+    typedef typename etlstd::iterator_traits<TIterator>::difference_type difference_t;
 
-    difference_t count = ETLSTD::distance(first, last);
+    difference_t count = etlstd::distance(first, last);
 
     while (count > 0)
     {
       TIterator    itr = first;
       difference_t step = count / 2;
 
-      ETLSTD::advance(itr, step);
+      etlstd::advance(itr, step);
 
       if (compare(*itr, value))
       {
@@ -212,9 +211,9 @@ namespace ETLSTD
   template<typename TIterator, typename TValue>
   TIterator lower_bound(TIterator first, TIterator last, const TValue& value)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
-    return ETLSTD::lower_bound(first, last, value, compare());
+    return etlstd::lower_bound(first, last, value, compare());
   }
 
   //***************************************************************************
@@ -222,16 +221,16 @@ namespace ETLSTD
   template<typename TIterator, typename TValue, typename TCompare>
   TIterator upper_bound(TIterator first, TIterator last, const TValue& value, TCompare compare)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator>::difference_type difference_t;
+    typedef typename etlstd::iterator_traits<TIterator>::difference_type difference_t;
 
-    difference_t count = ETLSTD::distance(first, last);
+    difference_t count = etlstd::distance(first, last);
 
     while (count > 0)
     {
       TIterator    itr = first;
       difference_t step = count / 2;
 
-      ETLSTD::advance(itr, step);
+      etlstd::advance(itr, step);
 
       if (!compare(value, *itr))
       {
@@ -250,27 +249,27 @@ namespace ETLSTD
   template<typename TIterator, typename TValue>
   TIterator upper_bound(TIterator first, TIterator last, const TValue& value)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
-    return ETLSTD::upper_bound(first, last, value, compare());
+    return etlstd::upper_bound(first, last, value, compare());
   }
 
   //***************************************************************************
   // equal_range
   template<typename TIterator, typename TValue, typename TCompare>
-  ETLSTD::pair  <TIterator, TIterator> equal_range(TIterator first, TIterator last, const TValue& value, TCompare compare)
+  etlstd::pair  <TIterator, TIterator> equal_range(TIterator first, TIterator last, const TValue& value, TCompare compare)
   {
-    return ETLSTD::make_pair(ETLSTD::lower_bound(first, last, value, compare),
-                          ETLSTD::upper_bound(first, last, value, compare));
+    return etlstd::make_pair(etlstd::lower_bound(first, last, value, compare),
+                          etlstd::upper_bound(first, last, value, compare));
   }
 
   template<typename TIterator, typename TValue>
-  ETLSTD::pair<TIterator, TIterator> equal_range(TIterator first, TIterator last, const TValue& value)
+  etlstd::pair<TIterator, TIterator> equal_range(TIterator first, TIterator last, const TValue& value)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
-    return ETLSTD::make_pair(ETLSTD::lower_bound(first, last, value, compare()),
-                          ETLSTD::upper_bound(first, last, value, compare()));
+    return etlstd::make_pair(etlstd::lower_bound(first, last, value, compare()),
+                          etlstd::upper_bound(first, last, value, compare()));
   }
 
   //***************************************************************************
@@ -404,7 +403,7 @@ namespace ETLSTD
   template <typename TIterator1, typename TIterator2>
   void iter_swap(TIterator1 a, TIterator2 b)
   {
-    typename ETLSTD::iterator_traits<TIterator1>::value_type c = *a;
+    typename etlstd::iterator_traits<TIterator1>::value_type c = *a;
     *a = *b;
     *b = c;
   }
@@ -412,7 +411,7 @@ namespace ETLSTD
   //***************************************************************************
   // equal
   template <typename TIterator1, typename TIterator2>
-  typename etl::enable_if<!etl::is_pointer<TIterator1>::value || !etl::is_pointer<TIterator2>::value || !etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, bool>::type
+  typename etl::enable_if<!etl::is_pointer<TIterator1>::value || !etl::is_pointer<TIterator2>::value || !etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, bool>::type
     equal(TIterator1 first1, TIterator1 last1, TIterator2 first2)
   {
     while (first1 != last1)
@@ -427,10 +426,10 @@ namespace ETLSTD
   }
 
   template <typename TIterator1, typename TIterator2>
-  typename etl::enable_if<etl::is_pointer<TIterator1>::value && etl::is_pointer<TIterator2>::value && etl::is_pod<typename ETLSTD::iterator_traits<TIterator1>::value_type>::value, bool>::type
+  typename etl::enable_if<etl::is_pointer<TIterator1>::value && etl::is_pointer<TIterator2>::value && etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, bool>::type
     equal(TIterator1 first1, TIterator1 last1, TIterator2 first2)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator1>::value_type value_t;
+    typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
 
     return (memcmp(first1, first2, sizeof(value_t) * (last1 - last1)) == 0);
   }
@@ -467,9 +466,9 @@ namespace ETLSTD
   bool lexicographical_compare(TIterator1 first1, TIterator1 last1,
                                TIterator2 first2, TIterator2 last2)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator1>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator1>::value_type> compare;
 
-     return ETLSTD::lexicographical_compare(first1, last1, first2, last2, compare());
+     return etlstd::lexicographical_compare(first1, last1, first2, last2, compare());
   }
 
   //***************************************************************************
@@ -483,9 +482,9 @@ namespace ETLSTD
   template <typename T>
   const T& min(const T& a, const T& b)
   {
-    typedef ETLSTD::less<T> compare;
+    typedef etlstd::less<T> compare;
 
-    return ETLSTD::min(a, b, compare());
+    return etlstd::min(a, b, compare());
   }
 
   //***************************************************************************
@@ -499,9 +498,9 @@ namespace ETLSTD
   template <typename T>
   const T& max(const T& a, const T& b)
   {
-    typedef ETLSTD::less<T> compare;
+    typedef etlstd::less<T> compare;
 
-    return ETLSTD::max(a, b, compare());
+    return etlstd::max(a, b, compare());
   }
 
   //***************************************************************************
@@ -603,8 +602,8 @@ namespace ETLSTD
   template <typename TIterator, typename TCompare>
   void pop_heap(TIterator first, TIterator last, TCompare compare)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator>::value_type value_t;
-    typedef typename ETLSTD::iterator_traits<TIterator>::difference_type distance_t;
+    typedef typename etlstd::iterator_traits<TIterator>::value_type value_t;
+    typedef typename etlstd::iterator_traits<TIterator>::difference_type distance_t;
 
     value_t value = last[-1];
     last[-1] = first[0];
@@ -616,17 +615,17 @@ namespace ETLSTD
   template <typename TIterator>
   void pop_heap(TIterator first, TIterator last)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
-    ETLSTD::pop_heap(first, last, compare());
+    etlstd::pop_heap(first, last, compare());
   }
 
   // Push Heap
   template <typename TIterator, typename TCompare>
   void push_heap(TIterator first, TIterator last, TCompare compare)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator>::difference_type difference_t;
-    typedef typename ETLSTD::iterator_traits<TIterator>::value_type      value_t;
+    typedef typename etlstd::iterator_traits<TIterator>::difference_type difference_t;
+    typedef typename etlstd::iterator_traits<TIterator>::value_type      value_t;
 
     private_heap::push_heap(first, difference_t(last - first - 1), difference_t(0), value_t(*(last - 1)), compare);
   }
@@ -635,16 +634,16 @@ namespace ETLSTD
   template <typename TIterator>
   void push_heap(TIterator first, TIterator last)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
-    ETLSTD::push_heap(first, last, compare());
+    etlstd::push_heap(first, last, compare());
   }
 
   // Make Heap
   template <typename TIterator, typename TCompare>
   void make_heap(TIterator first, TIterator last, TCompare compare)
   {
-    typedef typename ETLSTD::iterator_traits<TIterator>::difference_type difference_t;
+    typedef typename etlstd::iterator_traits<TIterator>::difference_type difference_t;
 
     if ((last - first) < 2)
     {
@@ -671,16 +670,16 @@ namespace ETLSTD
   template <typename TIterator>
   void make_heap(TIterator first, TIterator last)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
-    ETLSTD::make_heap(first, last, compare());
+    etlstd::make_heap(first, last, compare());
   }
 
   // Is Heap
   template <typename TIterator>
   bool is_heap(TIterator first, TIterator last)
   {
-    typedef ETLSTD::less<typename ETLSTD::iterator_traits<TIterator>::value_type> compare;
+    typedef etlstd::less<typename etlstd::iterator_traits<TIterator>::value_type> compare;
 
     return private_heap::is_heap(first, last - first, compare());
   }
@@ -733,9 +732,9 @@ namespace ETLSTD
   template<typename TIterator1, class TIterator2>
   TIterator1 search(TIterator1 first, TIterator1 last, TIterator2 search_first, TIterator2 search_last)
   {
-    typedef ETLSTD::equal_to<typename ETLSTD::iterator_traits<TIterator1>::value_type> compare;
+    typedef etlstd::equal_to<typename etlstd::iterator_traits<TIterator1>::value_type> compare;
 
-    return ETLSTD::search(first, last, search_first, search_last, compare());
+    return etlstd::search(first, last, search_first, search_last, compare());
   }
 
   //***************************************************************************
@@ -747,7 +746,7 @@ namespace ETLSTD
 
     while (first != next)
     {
-      ETLSTD::swap(*first++, *next++);
+      etlstd::swap(*first++, *next++);
 
       if (next == last)
       {

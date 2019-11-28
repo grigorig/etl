@@ -131,7 +131,7 @@ namespace etl
   {
   public:
 
-    typedef std::pair<const TKey, T> value_type;
+    typedef ETL_PAIR<const TKey, T> value_type;
 
     typedef TKey              key_type;
     typedef T                 mapped_type;
@@ -170,7 +170,7 @@ namespace etl
     typedef typename bucket_t::const_iterator local_const_iterator;
 
     //*********************************************************************
-    class iterator : public std::iterator<std::forward_iterator_tag, T>
+    class iterator : public ETL_STD::iterator<ETL_FORWARD_ITERATOR_TAG, T>
     {
     public:
 
@@ -330,7 +330,7 @@ namespace etl
     };
 
     //*********************************************************************
-    class const_iterator : public std::iterator<std::forward_iterator_tag, const T>
+    class const_iterator : public ETL_STD::iterator<ETL_FORWARD_ITERATOR_TAG, const T>
     {
     public:
 
@@ -481,7 +481,7 @@ namespace etl
       local_iterator       inode;
     };
 
-    typedef typename std::iterator_traits<iterator>::difference_type difference_type;
+    typedef typename ETL_STD::iterator_traits<iterator>::difference_type difference_type;
 
     //*********************************************************************
     /// Returns an iterator to the beginning of the unordered_multimap.
@@ -981,7 +981,7 @@ namespace etl
     ///\param key The key to search for.
     ///\return An iterator pair to the range of elements if the key exists, otherwise end().
     //*********************************************************************
-    std::pair<iterator, iterator> equal_range(key_parameter_t key)
+    ETL_PAIR<iterator, iterator> equal_range(key_parameter_t key)
     {
       iterator f = find(key);
       iterator l = f;
@@ -996,7 +996,7 @@ namespace etl
         }
       }
 
-      return std::pair<iterator, iterator>(f, l);
+      return ETL_PAIR<iterator, iterator>(f, l);
     }
 
     //*********************************************************************
@@ -1007,7 +1007,7 @@ namespace etl
     ///\param key The key to search for.
     ///\return A const iterator pair to the range of elements if the key exists, otherwise end().
     //*********************************************************************
-    std::pair<const_iterator, const_iterator> equal_range(key_parameter_t key) const
+    ETL_PAIR<const_iterator, const_iterator> equal_range(key_parameter_t key) const
     {
       const_iterator f = find(key);
       const_iterator l = f;
@@ -1022,7 +1022,7 @@ namespace etl
         }
       }
 
-      return std::pair<const_iterator, const_iterator>(f, l);
+      return ETL_PAIR<const_iterator, const_iterator>(f, l);
     }
 
     //*************************************************************************

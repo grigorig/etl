@@ -548,7 +548,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public std::iterator<std::bidirectional_iterator_tag, value_type>
+    class iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
     {
     public:
 
@@ -653,7 +653,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator
     //*************************************************************************
-    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const value_type>
+    class const_iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
     {
     public:
 
@@ -760,10 +760,10 @@ namespace etl
     };
     friend class const_iterator;
 
-    typedef typename std::iterator_traits<iterator>::difference_type difference_type;
+    typedef typename ETL_STD::iterator_traits<iterator>::difference_type difference_type;
 
-    typedef std::reverse_iterator<iterator>       reverse_iterator;
-    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef ETL_STD::reverse_iterator<iterator>       reverse_iterator;
+    typedef ETL_STD::reverse_iterator<const_iterator> const_reverse_iterator;
 
     //*************************************************************************
     /// Assignment operator.
@@ -910,9 +910,9 @@ namespace etl
     /// Returns two iterators with bounding (lower bound, upper bound) the
     /// value provided
     //*************************************************************************
-    std::pair<iterator, iterator> equal_range(const value_type& value)
+    ETL_PAIR<iterator, iterator> equal_range(const value_type& value)
     {
-      return std::make_pair<iterator, iterator>(
+      return ETL_MAKE_PAIR<iterator, iterator>(
         iterator(*this, find_lower_node(root_node, value)),
         iterator(*this, find_upper_node(root_node, value)));
     }
@@ -921,9 +921,9 @@ namespace etl
     /// Returns two const iterators with bounding (lower bound, upper bound)
     /// the value provided.
     //*************************************************************************
-    std::pair<const_iterator, const_iterator> equal_range(const value_type& value) const
+    ETL_PAIR<const_iterator, const_iterator> equal_range(const value_type& value) const
     {
-      return std::make_pair<const_iterator, const_iterator>(
+      return ETL_MAKE_PAIR<const_iterator, const_iterator>(
         const_iterator(*this, find_lower_node(root_node, value)),
         const_iterator(*this, find_upper_node(root_node, value)));
     }
@@ -1014,7 +1014,7 @@ namespace etl
     /// If asserts or exceptions are enabled, emits set_full if the set is already full.
     ///\param value    The value to insert.
     //*********************************************************************
-    std::pair<iterator, bool> insert(value_type& value)
+    ETL_PAIR<iterator, bool> insert(value_type& value)
     {
       // Default to no inserted node
       Node* inserted_node = nullptr;
@@ -1030,7 +1030,7 @@ namespace etl
       inserted = inserted_node == &node;
 
       // Insert node into tree and return iterator to new node location in tree
-      return std::make_pair(iterator(*this, inserted_node), inserted);
+      return ETL_MAKE_PAIR(iterator(*this, inserted_node), inserted);
     }
 
     //*********************************************************************

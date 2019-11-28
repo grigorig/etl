@@ -264,7 +264,7 @@ namespace etl
 
       void reverse()
       {
-        std::swap(etl_previous, etl_next);
+        ETL_STD::swap(etl_previous, etl_next);
       }
 
       bidirectional_link* etl_previous;
