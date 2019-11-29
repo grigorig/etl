@@ -39,6 +39,7 @@ SOFTWARE.
 #include <vector>
 #include <string>
 #include <list>
+#include <functional>
 
 namespace
 {
@@ -1295,7 +1296,6 @@ namespace
 
       are_equal = std::equal(data2.begin(), data2.end(), compare_data.begin());
       CHECK(are_equal);
-
     }
 
     //*************************************************************************

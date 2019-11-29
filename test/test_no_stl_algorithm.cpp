@@ -222,6 +222,26 @@ namespace
     }
 
     //*************************************************************************
+    TEST(reverse_copy_pod_pointer)
+    {
+      int data1[10];
+      int data2[10];
+
+      int* pstl = std::reverse_copy(std::begin(dataA), std::end(dataA), std::begin(data1));
+      int* petl = etlstd::reverse_copy(std::begin(dataA), std::end(dataA), std::begin(data2));
+
+      using difference_type_t = std::iterator_traits<int*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
+
+      CHECK_EQUAL(dstl, detl);
+
+      bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
+      CHECK(isEqual);
+    }
+
+    //*************************************************************************
     TEST(copy_n_pod_pointer)
     {
       int data1[10];
@@ -390,7 +410,7 @@ namespace
     {
       for (int i = 0; i < 11; ++i)
       {
-        std::pair<int*, int*>    lb1 = std::equal_range(std::begin(dataEQ), std::end(dataEQ), i);
+        ETL_PAIR<int*, int*>    lb1 = std::equal_range(std::begin(dataEQ), std::end(dataEQ), i);
         etlstd::pair<random_iterator<int>, random_iterator<int>> lb2 = etlstd::equal_range(random_iterator<int>(std::begin(dataEQ)), random_iterator<int>(std::end(dataEQ)), i);
 
         CHECK_EQUAL(std::distance(std::begin(dataEQ), lb1.first), std::distance<int*>(std::begin(dataEQ), lb2.first));
@@ -403,7 +423,7 @@ namespace
     {
       for (int i = 0; i < 11; ++i)
       {
-        std::pair<int*, int*>    lb1 = std::equal_range(std::begin(dataEQ), std::end(dataEQ), i);
+        ETL_PAIR<int*, int*>    lb1 = std::equal_range(std::begin(dataEQ), std::end(dataEQ), i);
         etlstd::pair<non_random_iterator<int>, non_random_iterator<int>> lb2 = etlstd::equal_range(non_random_iterator<int>(std::begin(dataEQ)), non_random_iterator<int>(std::end(dataEQ)), i);
 
         CHECK_EQUAL(std::distance(std::begin(dataEQ), lb1.first), std::distance<int*>(std::begin(dataEQ), lb2.first));

@@ -39,6 +39,7 @@ SOFTWARE.
 #include "static_assert.h"
 #include "timer.h"
 #include "atomic.h"
+#include "error_handler.h"
 
 #if ETL_CPP11_SUPPORTED
   #include "delegate.h"

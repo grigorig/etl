@@ -36,8 +36,8 @@ SOFTWARE.
 
 #include <string.h>
 
-#include "../private/choose_tag_types.h"
-#include "../private/choose_pair_types.h"
+#include "etl/private/choose_tag_types.h"
+#include "etl/private/choose_pair_types.h"
 
 // Local alternate definitions.
 #include "iterator.h"
@@ -92,6 +92,19 @@ namespace etlstd
     while (sb != se)
     {
       *db++ = *sb++;
+    }
+
+    return db;
+  }
+
+  //***************************************************************************
+  // reverse_copy
+  template <typename TIterator1, typename TIterator2>
+  TIterator2 reverse_copy(TIterator1 sb, TIterator1 se, TIterator2 db)
+  {
+    while (sb != se)
+    {
+      *(db++) = *(--se);
     }
 
     return db;
@@ -415,6 +428,21 @@ namespace etlstd
   }
 
   //***************************************************************************
+  // swap_ranges
+  template <typename T1terator1, typename TIterator2>
+  ETL_CONSTEXPR TIterator2 swap_ranges(T1terator1 first1,
+                                       T1terator1 last1,
+                                       TIterator2 first2)
+  {
+    while (first1 != last1)
+    {
+      iter_swap(first1++, first2++);
+    }
+
+    return first2;
+  }
+
+  //***************************************************************************
   // equal
   template <typename TIterator1, typename TIterator2>
   typename etl::enable_if<!etl::is_pointer<TIterator1>::value || !etl::is_pointer<TIterator2>::value || !etl::is_pod<typename etlstd::iterator_traits<TIterator1>::value_type>::value, bool>::type
@@ -437,7 +465,7 @@ namespace etlstd
   {
     typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
 
-    return (memcmp(first1, first2, sizeof(value_t) * (last1 - last1)) == 0);
+    return (memcmp(first1, first2, sizeof(value_t) * (last1 - first1)) == 0);
   }
 
   //***************************************************************************

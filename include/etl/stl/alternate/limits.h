@@ -36,8 +36,8 @@ SOFTWARE.
 #include "../../char_traits.h"
 #include "../../integral_limits.h"
 
-#include "../private/choose_tag_types.h"
-#include "../private/choose_pair_types.h"
+#include "../../private/choose_tag_types.h"
+#include "../../private/choose_pair_types.h"
 
 #include <limits.h>
 #include <stdint.h>

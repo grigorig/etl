@@ -4,8 +4,8 @@
 
 #include "../../platform.h"
 
-#include "../private/choose_tag_types.h"
-#include "../private/choose_pair_types.h"
+#include "../../private/choose_tag_types.h"
+#include "../../private/choose_pair_types.h"
 
 namespace etlstd
 {

@@ -1290,7 +1290,7 @@ namespace etl
     void repair()
     {
       #if ETL_CPP11_TYPE_TRAITS_IS_TRIVIAL_SUPPORTED
-      ETL_ASSERT(ETL_STD::is_trivially_copyable<T>::value, ETL_ERROR(etl::vector_incompatible_type));
+      ETL_ASSERT(etl::is_trivially_copyable<T>::value, ETL_ERROR(etl::vector_incompatible_type));
       #endif
 
       etl::ivector<T>::repair_buffer(buffer);
@@ -1445,7 +1445,7 @@ namespace etl
       void repair()
     {
 #if ETL_CPP11_TYPE_TRAITS_IS_TRIVIAL_SUPPORTED
-      ETL_ASSERT(ETL_STD::is_trivially_copyable<T>::value, ETL_ERROR(etl::vector_incompatible_type));
+      ETL_ASSERT(etl::is_trivially_copyable<T>::value, ETL_ERROR(etl::vector_incompatible_type));
 #endif
 
       etl::ivector<T>::repair_buffer(this->p_buffer);

@@ -2362,7 +2362,7 @@ namespace etl
     void repair()
     {
 #if ETL_CPP11_TYPE_TRAITS_IS_TRIVIAL_SUPPORTED
-      ETL_ASSERT(ETL_STD::is_trivially_copyable<T>::value, ETL_ERROR(etl::deque_incompatible_type));
+      ETL_ASSERT(etl::is_trivially_copyable<T>::value, ETL_ERROR(etl::deque_incompatible_type));
 #endif
 
       etl::ideque<T>::repair_buffer(reinterpret_cast<T*>(&buffer[0]));

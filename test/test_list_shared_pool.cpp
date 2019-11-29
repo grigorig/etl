@@ -39,6 +39,7 @@ SOFTWARE.
 #include <array>
 #include <list>
 #include <vector>
+#include <functional>
 
 namespace
 {

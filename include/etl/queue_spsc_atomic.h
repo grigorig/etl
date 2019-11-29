@@ -46,6 +46,8 @@ SOFTWARE.
 #undef ETL_FILE
 #define ETL_FILE "47"
 
+#if ETL_HAS_ATOMIC
+
 namespace etl
 {
   template <const size_t MEMORY_MODEL = etl::memory_model::MEMORY_MODEL_LARGE>
@@ -470,6 +472,8 @@ namespace etl
     typename etl::aligned_storage<sizeof(T), etl::alignment_of<T>::value>::type buffer[RESERVED_SIZE];
   };
 }
+
+#endif
 
 #undef ETL_FILE
 
