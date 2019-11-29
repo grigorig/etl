@@ -32,11 +32,14 @@ SOFTWARE.
 #define ETL_STL_ALTERNATE_ALGORITHM_INCLUDED
 
 #include "../../platform.h"
+#include "../../type_traits.h"
 
 #include <string.h>
 
-#include "../../type_traits.h"
+#include "../private/choose_tag_types.h"
+#include "../private/choose_pair_types.h"
 
+// Local alternate definitions.
 #include "iterator.h"
 #include "functional.h"
 #include "utility.h"
@@ -72,8 +75,11 @@ namespace etlstd
     copy(TIterator1 sb, TIterator1 se, TIterator2 db)
   {
     typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
+    typedef typename etlstd::iterator_traits<TIterator1>::difference_type difference_t;
 
-    return TIterator2(memcpy(db, sb, sizeof(value_t) * (se - sb)));
+    difference_t count = (se - sb);
+
+    return TIterator2(memcpy(db, sb, sizeof(value_t) * count)) + count;
   }
 
   // Other iterator
@@ -102,7 +108,7 @@ namespace etlstd
   {
     typedef typename etlstd::iterator_traits<TIterator1>::value_type value_t;
 
-    return TIterator2(memcpy(db, sb, sizeof(value_t) * count));
+    return TIterator2(memcpy(db, sb, sizeof(value_t) * count)) + count;
   }
 
   // Other iterator

@@ -33,21 +33,14 @@ SOFTWARE.
 
 #include "../platform.h"
 
-#include "choose_namespace.h"
+#include "../private/choose_namespace.h"
+#include "../private/choose_tag_types.h"
+#include "../private/choose_pair_types.h"
 
 #if defined(ETL_NO_STL)
   #include "alternate/utility.h"
 #else
   #include <utility>
-#endif
-
-#if defined(ETL_IN_UNIT_TEST) // When in the unit tests we have to ensure that the STL and ETL are using the same definitions.
-  #include <utility>
-  #define ETL_PAIR      std::pair
-  #define ETL_MAKE_PAIR std::make_pair
-#else
-  #define ETL_PAIR      etlstd::pair
-  #define ETL_MAKE_PAIR etlstd::make_pair
 #endif
 
 #endif

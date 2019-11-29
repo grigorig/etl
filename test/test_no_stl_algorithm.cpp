@@ -31,6 +31,7 @@ SOFTWARE.
 #undef min
 #undef max
 
+#include "etl/stl/algorithm.h"
 #include "etl/stl/alternate/algorithm.h"
 
 #include <algorithm>
@@ -166,8 +167,15 @@ namespace
       int data1[10];
       int data2[10];
 
-      std::copy(std::begin(dataA), std::end(dataA), std::begin(data1));
-      etlstd::copy(std::begin(dataA), std::end(dataA), std::begin(data2));
+      int* pstl = std::copy(std::begin(dataA), std::end(dataA), std::begin(data1));
+      int* petl = etlstd::copy(std::begin(dataA), std::end(dataA), std::begin(data2));
+
+      using difference_type_t = std::iterator_traits<int*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -179,8 +187,15 @@ namespace
       Data data1[10];
       Data data2[10];
 
-      std::copy(std::begin(dataD), std::end(dataD), std::begin(data1));
-      etlstd::copy(std::begin(dataD), std::end(dataD), std::begin(data2));
+      Data* pstl = std::copy(std::begin(dataD), std::end(dataD), std::begin(data1));
+      Data* petl = etlstd::copy(std::begin(dataD), std::end(dataD), std::begin(data2));
+
+      using difference_type_t = std::iterator_traits<Data*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -192,8 +207,15 @@ namespace
       List data1(dataL.size());
       List data2(dataL.size());
 
-      std::copy(std::begin(dataA), std::end(dataA), std::begin(data1));
-      etlstd::copy(std::begin(dataA), std::end(dataA), std::begin(data2));
+      List::iterator pstl = std::copy(std::begin(dataA), std::end(dataA), std::begin(data1));
+      List::iterator petl = etlstd::copy(std::begin(dataA), std::end(dataA), std::begin(data2));
+
+      using difference_type_t = List::difference_type;
+
+      difference_type_t dstl = std::distance(data1.begin(), pstl);
+      difference_type_t detl = std::distance(data2.begin(), petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -205,8 +227,15 @@ namespace
       int data1[10];
       int data2[10];
 
-      std::copy_n(std::begin(dataA), 10, std::begin(data1));
-      etlstd::copy_n(std::begin(dataA), 10, std::begin(data2));
+      int* pstl = std::copy_n(std::begin(dataA), 10, std::begin(data1));
+      int* petl = etlstd::copy_n(std::begin(dataA), 10, std::begin(data2));
+
+      using difference_type_t = std::iterator_traits<int*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -218,8 +247,15 @@ namespace
       Data data1[10];
       Data data2[10];
 
-      std::copy_n(std::begin(dataD), 10, std::begin(data1));
-      etlstd::copy_n(std::begin(dataD), 10, std::begin(data2));
+      Data* pstl = std::copy_n(std::begin(dataD), 10, std::begin(data1));
+      Data* petl = etlstd::copy_n(std::begin(dataD), 10, std::begin(data2));
+
+      using difference_type_t = std::iterator_traits<Data*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -231,8 +267,15 @@ namespace
       List data1(dataL.size());
       List data2(dataL.size());
 
-      std::copy_n(std::begin(dataA), 10, std::begin(data1));
-      etlstd::copy_n(std::begin(dataA), 10, std::begin(data2));
+      List::iterator pstl = std::copy_n(std::begin(dataA), 10, std::begin(data1));
+      List::iterator petl = etlstd::copy_n(std::begin(dataA), 10, std::begin(data2));
+
+      using difference_type_t = List::difference_type;
+
+      difference_type_t dstl = std::distance(data1.begin(), pstl);
+      difference_type_t detl = std::distance(data2.begin(), petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -244,8 +287,15 @@ namespace
       int data1[10];
       int data2[10];
 
-      std::copy_backward(std::begin(dataA), std::end(dataA), std::end(data1));
-      etlstd::copy_backward(std::begin(dataA), std::end(dataA), std::end(data2));
+      int* pstl = std::copy_backward(std::begin(dataA), std::end(dataA), std::end(data1));
+      int* petl = etlstd::copy_backward(std::begin(dataA), std::end(dataA), std::end(data2));
+
+      using difference_type_t = std::iterator_traits<int*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
+
+      CHECK_EQUAL(dstl, detl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -257,8 +307,13 @@ namespace
       Data data1[10];
       Data data2[10];
 
-      std::copy_backward(std::begin(dataD), std::end(dataD), std::end(data1));
-      etlstd::copy_backward(std::begin(dataD), std::end(dataD), std::end(data2));
+      Data* pstl = std::copy_backward(std::begin(dataD), std::end(dataD), std::end(data1));
+      Data* petl = etlstd::copy_backward(std::begin(dataD), std::end(dataD), std::end(data2));
+
+      using difference_type_t = std::iterator_traits<Data*>::difference_type;
+
+      difference_type_t dstl = std::distance(data1, pstl);
+      difference_type_t detl = std::distance(data2, petl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);
@@ -270,8 +325,13 @@ namespace
       List data1(dataL.size());
       List data2(dataL.size());
 
-      std::copy_backward(std::begin(dataA), std::end(dataA), std::end(data1));
-      etlstd::copy_backward(std::begin(dataA), std::end(dataA), std::end(data2));
+      List::iterator pstl = copy_backward(std::begin(dataA), std::end(dataA), std::end(data1));
+      List::iterator petl = etlstd::copy_backward(std::begin(dataA), std::end(dataA), std::end(data2));
+
+      using difference_type_t = std::iterator_traits<List::iterator>::difference_type;
+
+      difference_type_t dstl = std::distance(data1.begin(), pstl);
+      difference_type_t detl = std::distance(data2.begin(), petl);
 
       bool isEqual = std::equal(std::begin(data1), std::end(data1), std::begin(data2));
       CHECK(isEqual);

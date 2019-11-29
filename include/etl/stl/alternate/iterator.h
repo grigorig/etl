@@ -33,9 +33,12 @@ SOFTWARE.
 #define ETL_STL_ALTERNATE_ITERATOR_INCLUDED
 
 #include "../../platform.h"
+#include "../../type_traits.h"
 
 #include <string.h>
-#include "../../type_traits.h"
+
+#include "../private/choose_tag_types.h"
+#include "../private/choose_pair_types.h"
 
 namespace etlstd
 {
@@ -62,21 +65,21 @@ namespace etlstd
   template <typename T>
   struct iterator_traits<T*>
   {
-    typedef ptrdiff_t                  difference_type;
-    typedef T                          value_type;
-    typedef T*                         pointer;
-    typedef T&                         reference;
-    typedef random_access_iterator_tag iterator_category;
+    typedef ptrdiff_t                      difference_type;
+    typedef T                              value_type;
+    typedef T*                             pointer;
+    typedef T&                             reference;
+    typedef ETL_RANDOM_ACCESS_ITERATOR_TAG iterator_category;
   };
 
   template <typename T>
   struct iterator_traits<const T*>
   {
-    typedef ptrdiff_t                  difference_type;
-    typedef T                          value_type;
-    typedef T*                         pointer;
-    typedef T&                         reference;
-    typedef random_access_iterator_tag iterator_category;
+    typedef ptrdiff_t                      difference_type;
+    typedef T                              value_type;
+    typedef T*                             pointer;
+    typedef T&                             reference;
+    typedef ETL_RANDOM_ACCESS_ITERATOR_TAG iterator_category;
   };
 
   //***************************************************************************
@@ -90,7 +93,7 @@ namespace etlstd
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, std::input_iterator_tag/*ETL_INPUT_ITERATOR_TAG*/)
+  void advance_helper(TIterator& itr, TDistance n, ETL_INPUT_ITERATOR_TAG)
   {
     while (n--)
     {
@@ -99,7 +102,7 @@ namespace etlstd
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, std::output_iterator_tag /*ETL_OUTPUT_ITERATOR_TAG*/)
+  void advance_helper(TIterator& itr, TDistance n, ETL_OUTPUT_ITERATOR_TAG)
   {
     while (n--)
     {
@@ -108,7 +111,7 @@ namespace etlstd
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, std::forward_iterator_tag/*ETL_FORWARD_ITERATOR_TAG*/)
+  void advance_helper(TIterator& itr, TDistance n, ETL_FORWARD_ITERATOR_TAG)
   {
     while (n--)
     {
@@ -117,7 +120,7 @@ namespace etlstd
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, std::bidirectional_iterator_tag/*ETL_BIDIRECTIONAL_ITERATOR_TAG*/)
+  void advance_helper(TIterator& itr, TDistance n, ETL_BIDIRECTIONAL_ITERATOR_TAG)
   {
     if (n > 0)
     {
@@ -136,7 +139,7 @@ namespace etlstd
   }
 
   template <typename TIterator, typename TDistance>
-  void advance_helper(TIterator& itr, TDistance n, std::random_access_iterator_tag/*ETL_RANDOM_ACCESS_ITERATOR_TAG*/)
+  void advance_helper(TIterator& itr, TDistance n, ETL_RANDOM_ACCESS_ITERATOR_TAG)
   {
     itr += n;
   }
@@ -152,7 +155,7 @@ namespace etlstd
   }
 
   template<typename TIterator>
-  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, std::input_iterator_tag/*ETL_INPUT_ITERATOR_TAG*/)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETL_INPUT_ITERATOR_TAG)
   {
     typename etlstd::iterator_traits<TIterator>::difference_type d = 0;
 
@@ -166,7 +169,7 @@ namespace etlstd
   }
 
   template<typename TIterator>
-  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, std::forward_iterator_tag/*ETL_FORWARD_ITERATOR_TAG*/)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETL_FORWARD_ITERATOR_TAG)
   {
     typename etlstd::iterator_traits<TIterator>::difference_type d = 0;
 
@@ -180,7 +183,7 @@ namespace etlstd
   }
 
   template<typename TIterator>
-  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, std::bidirectional_iterator_tag/*ETL_BIDIRECTIONAL_ITERATOR_TAG*/)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETL_BIDIRECTIONAL_ITERATOR_TAG)
   {
     typename etlstd::iterator_traits<TIterator>::difference_type d = 0;
 
@@ -194,7 +197,7 @@ namespace etlstd
   }
 
   template<typename TIterator>
-  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, std::random_access_iterator_tag/*ETL_RANDOM_ACCESS_ITERATOR_TAG*/)
+  typename etlstd::iterator_traits<TIterator>::difference_type distance_helper(TIterator first, TIterator last, ETL_RANDOM_ACCESS_ITERATOR_TAG)
   {
     return last - first;
   }
@@ -216,7 +219,7 @@ namespace etlstd
     {
     }
 
-    explicit reverse_iterator(TIterator itr) : current(itr)
+    explicit reverse_iterator(TIterator itr) : current(--itr)
     {
     }
 
@@ -251,16 +254,12 @@ namespace etlstd
 
     reference operator *() const
     {
-      TIterator temp = current;
-      --temp;
-      return *temp;
+      return *current;
     }
 
     pointer operator ->() const
     {
-      TIterator temp = current;
-      --temp;
-      return &(*temp);
+      return &(*current);
     }
 
     reverse_iterator<TIterator>& operator ++()
@@ -313,19 +312,13 @@ namespace etlstd
 
     reference operator [](difference_type n) const
     {
-      return *(*this + n);
+      return *(current - n);
     }
 
   protected:
 
     TIterator current;
   };
-
-  template <class TIterator>
-  inline bool operator <(const reverse_iterator<TIterator>& lhs, const reverse_iterator<TIterator>& rhs)
-  {
-    return rhs.base() < lhs.base();
-  }
 
   template <class TIterator>
   inline bool operator ==(const reverse_iterator<TIterator>& lhs, const reverse_iterator<TIterator>& rhs)
@@ -337,6 +330,12 @@ namespace etlstd
   inline bool operator !=(const reverse_iterator<TIterator>& lhs, const reverse_iterator<TIterator>& rhs)
   {
     return !(lhs == rhs);
+  }
+
+  template <class TIterator>
+  inline bool operator <(const reverse_iterator<TIterator>& lhs, const reverse_iterator<TIterator>& rhs)
+  {
+    return rhs.base() < lhs.base();
   }
 
   template <class TIterator>

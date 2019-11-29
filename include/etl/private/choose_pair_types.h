@@ -7,7 +7,7 @@ Embedded Template Library.
 https://github.com/ETLCPP/etl
 https://www.etlcpp.com
 
-Copyright(c) 2018 jwellbelove
+Copyright(c) 2019 jwellbelove
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the "Software"), to deal
@@ -28,19 +28,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ******************************************************************************/
 
-#ifndef ETL_STL_ALGORITHM_INCLUDED
-#define ETL_STL_ALGORITHM_INCLUDED
+#ifndef ETL_STL_CHOOSE_PAIR_TYPES_INCLUDED
+#define ETL_STL_CHOOSE_PAIR_TYPES_INCLUDED
 
 #include "../platform.h"
 
-#include "../private/choose_namespace.h"
-#include "../private/choose_tag_types.h"
-#include "../private/choose_pair_types.h"
-
-#if defined(ETL_NO_STL)
-  #include "alternate/algorithm.h"
+#if defined(ETL_IN_UNIT_TEST) // When in the unit tests we have to ensure that the STL and ETL are using the same definitions.
+  #include <utility>
+  #define ETL_PAIR      std::pair
+  #define ETL_MAKE_PAIR std::make_pair
 #else
-  #include <algorithm>
+  #define ETL_PAIR      etlstd::pair
+  #define ETL_MAKE_PAIR etlstd::make_pair
 #endif
 
 #endif

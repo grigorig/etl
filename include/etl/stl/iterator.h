@@ -34,22 +34,9 @@ SOFTWARE.
 
 #include "../platform.h"
 
-#include "choose_namespace.h"
-
-#if defined(ETL_IN_UNIT_TEST) // When in the unit tests we have to ensure that the STL and ETL are using the same definitions.
-  #include <iterator>
-  #define ETL_INPUT_ITERATOR_TAG         std::input_iterator_tag
-  #define ETL_OUTPUT_ITERATOR_TAG        std::output_iterator_tag
-  #define ETL_FORWARD_ITERATOR_TAG       std::forward_iterator_tag
-  #define ETL_BIDIRECTIONAL_ITERATOR_TAG std::bidirectional_iterator_tag
-  #define ETL_RANDOM_ACCESS_ITERATOR_TAG std::random_access_iterator_tag
-#else
-  #define ETL_INPUT_ITERATOR_TAG         etlstd::input_iterator_tag
-  #define ETL_OUTPUT_ITERATOR_TAG        etlstd::output_iterator_tag
-  #define ETL_FORWARD_ITERATOR_TAG       etlstd::forward_iterator_tag
-  #define ETL_BIDIRECTIONAL_ITERATOR_TAG etlstd::bidirectional_iterator_tag
-  #define ETL_RANDOM_ACCESS_ITERATOR_TAG etlstd::random_access_iterator_tag
-#endif
+#include "../private/choose_namespace.h"
+#include "../private/choose_tag_types.h"
+#include "../private/choose_pair_types.h"
 
 #if defined(ETL_NO_STL)
   #include "alternate/iterator.h"
