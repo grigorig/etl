@@ -34,6 +34,7 @@ SOFTWARE.
 #include "platform.h"
 #include "vector.h"
 #include "pool.h"
+#include "iterator.h"
 
 #include "stl/iterator.h"
 #include "stl/functional.h"
@@ -99,7 +100,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public ETL_STD::iterator<ETL_RANDOM_ACCESS_ITERATOR_TAG, T>
+    class iterator : public etl::iterator<ETL_RANDOM_ACCESS_ITERATOR_TAG, T>
     {
     public:
 
@@ -237,7 +238,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator.
     //*************************************************************************
-    class const_iterator : public ETL_STD::iterator<ETL_RANDOM_ACCESS_ITERATOR_TAG, const T>
+    class const_iterator : public etl::iterator<ETL_RANDOM_ACCESS_ITERATOR_TAG, const T>
     {
     public:
 

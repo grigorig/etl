@@ -441,7 +441,7 @@ namespace etl
     //*********************************************************************
     void initialise_source_external_buffer_after_move()
     {
-      ETL_SUBTRACT_DEBUG_COUNT(int32_t(std::distance(p_buffer, p_end)))
+      ETL_SUBTRACT_DEBUG_COUNT(int32_t(ETL_STD::distance(p_buffer, p_end)))
 
         p_end = p_buffer;
     }
@@ -451,7 +451,7 @@ namespace etl
     //*********************************************************************
     void initialise_destination_external_buffer_after_move()
     {
-      ETL_ADD_DEBUG_COUNT(int32_t(std::distance(p_buffer, p_end)))
+      ETL_ADD_DEBUG_COUNT(int32_t(ETL_STD::distance(p_buffer, p_end)))
     }
   };
 
@@ -852,7 +852,7 @@ namespace etl
     //*********************************************************************
     void initialise_source_external_buffer_after_move()
     {
-      ETL_SUBTRACT_DEBUG_COUNT(int32_t(std::distance(p_buffer, p_end)))
+      ETL_SUBTRACT_DEBUG_COUNT(int32_t(ETL_STD::distance(p_buffer, p_end)))
 
         p_end = p_buffer;
     }
@@ -862,7 +862,7 @@ namespace etl
     //*********************************************************************
     void initialise_destination_external_buffer_after_move()
     {
-      ETL_ADD_DEBUG_COUNT(int32_t(std::distance(p_buffer, p_end)))
+      ETL_ADD_DEBUG_COUNT(int32_t(ETL_STD::distance(p_buffer, p_end)))
     }
   };
 

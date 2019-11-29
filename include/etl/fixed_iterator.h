@@ -32,6 +32,7 @@ SOFTWARE.
 #define ETL_FIXED_ITERATOR_INCLUDED
 
 #include "platform.h"
+#include "iterator.h"
 
 #include "stl/iterator.h"
 
@@ -44,7 +45,7 @@ namespace etl
   /// This can be useful when using STL algorithms to interact with fixed memory locations such as registers.
   ///\ingroup iterator
   template <typename TIterator>
-  class fixed_iterator : ETL_STD::iterator<typename ETL_STD::iterator_traits<TIterator>::iterator_category, typename ETL_STD::iterator_traits<TIterator>::value_type>
+  class fixed_iterator : etl::iterator<typename ETL_STD::iterator_traits<TIterator>::iterator_category, typename ETL_STD::iterator_traits<TIterator>::value_type>
   {
   public:
 

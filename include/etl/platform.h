@@ -63,11 +63,6 @@ SOFTWARE.
 
 // The macros below are dependent on the profile.
 
-#if defined(ETL_COMPILER_MICROSOFT)
-  // Disable warning of deprecated ETL_STD::iterator.
-  #pragma warning(disable : 4996)
-#endif
-
 #if defined(ETL_COMPILER_GCC)
   #define ETL_COMPILER_VERSION      __GNUC__
   #define ETL_COMPILER_FULL_VERSION ((__GNUC__ * 10000) + (__GNUC_MINOR__ * 100) + __GNUC_PATCHLEVEL__)

@@ -51,6 +51,7 @@ SOFTWARE.
 #include "debug_count.h"
 #include "algorithm.h"
 #include "type_traits.h"
+#include "iterator.h"
 
 #if ETL_CPP11_SUPPORTED && !defined(ETL_STLPORT) && !defined(ETL_NO_STL)
   #include <initializer_list>
@@ -255,7 +256,7 @@ namespace etl
     //*************************************************************************
     /// Iterator
     //*************************************************************************
-    struct iterator : public ETL_STD::iterator<ETL_STD::random_access_iterator_tag, T>
+    struct iterator : public etl::iterator<ETL_RANDOM_ACCESS_ITERATOR_TAG, T>
     {
       friend class ideque;
 
@@ -441,7 +442,7 @@ namespace etl
     //*************************************************************************
     /// Const Iterator
     //*************************************************************************
-    struct const_iterator : public ETL_STD::iterator<ETL_STD::random_access_iterator_tag, const T>
+    struct const_iterator : public etl::iterator<ETL_RANDOM_ACCESS_ITERATOR_TAG, const T>
     {
       friend class ideque;
 

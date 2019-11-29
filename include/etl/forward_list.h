@@ -50,6 +50,7 @@ SOFTWARE.
 #include "nullptr.h"
 #include "type_traits.h"
 #include "memory.h"
+#include "iterator.h"
 
 #if ETL_CPP11_SUPPORTED && !defined(ETL_STLPORT) && !defined(ETL_NO_STL)
   #include <initializer_list>
@@ -403,7 +404,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public ETL_STD::iterator<ETL_FORWARD_ITERATOR_TAG, T>
+    class iterator : public etl::iterator<ETL_FORWARD_ITERATOR_TAG, T>
     {
     public:
 
@@ -491,7 +492,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator
     //*************************************************************************
-    class const_iterator : public ETL_STD::iterator<ETL_FORWARD_ITERATOR_TAG, const T>
+    class const_iterator : public etl::iterator<ETL_FORWARD_ITERATOR_TAG, const T>
     {
     public:
 

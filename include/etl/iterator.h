@@ -42,6 +42,22 @@ SOFTWARE.
 
 namespace etl
 {
+  //***************************************************************************
+  /// iterator
+  //***************************************************************************
+  template <typename TCategory, typename T, typename TDistance = ptrdiff_t, typename TPointer = T * , typename TReference = T & >
+  struct iterator
+  {
+    typedef T          value_type;
+    typedef TDistance  difference_type;
+    typedef TPointer   pointer;
+    typedef TReference reference;
+    typedef TCategory  iterator_category;
+  };
+
+  //***************************************************************************
+  // Helper templates.
+  //***************************************************************************
   template <typename T>
   struct is_input_iterator
   {

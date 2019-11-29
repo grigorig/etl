@@ -31,7 +31,7 @@ SOFTWARE.
 #undef min
 #undef max
 
-#include "etl/stl/alternate/iterator.h"
+#include "etl/stl/iterator.h"
 
 #include <algorithm>
 #include <vector>

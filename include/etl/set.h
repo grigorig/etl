@@ -44,6 +44,7 @@ SOFTWARE.
 #include "nullptr.h"
 #include "type_traits.h"
 #include "parameter_type.h"
+#include "iterator.h"
 
 #include "stl/algorithm.h"
 #include "stl/iterator.h"
@@ -456,7 +457,7 @@ namespace etl
   /// A templated base for all etl::set types.
   ///\ingroup set
   //***************************************************************************
-  template <typename T, typename TCompare = std::less<T> >
+  template <typename T, typename TCompare = ETL_STD::less<T> >
   class iset : public etl::set_base
   {
   public:
@@ -548,7 +549,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
+    class iterator : public etl::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
     {
     public:
 
@@ -653,7 +654,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator
     //*************************************************************************
-    class const_iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
+    class const_iterator : public etl::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
     {
     public:
 
@@ -1949,7 +1950,7 @@ namespace etl
   //*************************************************************************
   /// A templated set implementation that uses a fixed size buffer.
   //*************************************************************************
-  template <typename T, const size_t MAX_SIZE_, typename TCompare = std::less<T> >
+  template <typename T, const size_t MAX_SIZE_, typename TCompare = ETL_STD::less<T> >
   class set : public etl::iset<T, TCompare>
   {
   public:
@@ -2036,7 +2037,7 @@ namespace etl
   template <typename T, typename TCompare>
   bool operator ==(const etl::iset<T, TCompare>& lhs, const etl::iset<T, TCompare>& rhs)
   {
-    return (lhs.size() == rhs.size()) && std::equal(lhs.begin(), lhs.end(), rhs.begin());
+    return (lhs.size() == rhs.size()) && ETL_STD::equal(lhs.begin(), lhs.end(), rhs.begin());
   }
 
   //***************************************************************************
@@ -2062,7 +2063,7 @@ namespace etl
   template <typename T, typename TCompare>
   bool operator <(const etl::iset<T, TCompare>& lhs, const etl::iset<T, TCompare>& rhs)
   {
-    return std::lexicographical_compare(lhs.begin(),
+    return ETL_STD::lexicographical_compare(lhs.begin(),
       lhs.end(),
       rhs.begin(),
       rhs.end());

@@ -48,6 +48,7 @@ SOFTWARE.
 #include "error_handler.h"
 #include "intrusive_links.h"
 #include "algorithm.h"
+#include "iterator.h"
 
 #undef ETL_FILE
 #define ETL_FILE "20"
@@ -327,7 +328,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public ETL_STD::iterator<ETL_FORWARD_ITERATOR_TAG, value_type>
+    class iterator : public etl::iterator<ETL_FORWARD_ITERATOR_TAG, value_type>
     {
     public:
 
@@ -417,7 +418,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator
     //*************************************************************************
-    class const_iterator : public ETL_STD::iterator<ETL_FORWARD_ITERATOR_TAG, const value_type>
+    class const_iterator : public etl::iterator<ETL_FORWARD_ITERATOR_TAG, const value_type>
     {
     public:
 

@@ -49,6 +49,7 @@ SOFTWARE.
 #include "nullptr.h"
 #include "type_traits.h"
 #include "parameter_type.h"
+#include "iterator.h"
 
 #if ETL_CPP11_SUPPORTED && !defined(ETL_STLPORT) && !defined(ETL_NO_STL)
   #include <initializer_list>
@@ -574,7 +575,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
+    class iterator : public etl::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
     {
     public:
 
@@ -695,7 +696,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator
     //*************************************************************************
-    class const_iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
+    class const_iterator : public etl::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
     {
     public:
 

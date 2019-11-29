@@ -45,6 +45,7 @@ SOFTWARE.
 #include "intrusive_links.h"
 #include "static_assert.h"
 #include "algorithm.h"
+#include "iterator.h"
 
 #include "stl/algorithm.h"
 #include "stl/iterator.h"
@@ -382,7 +383,7 @@ namespace etl
     //*************************************************************************
     /// iterator.
     //*************************************************************************
-    class iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
+    class iterator : public etl::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, value_type>
     {
     public:
 
@@ -487,7 +488,7 @@ namespace etl
     //*************************************************************************
     /// const_iterator
     //*************************************************************************
-    class const_iterator : public ETL_STD::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
+    class const_iterator : public etl::iterator<ETL_BIDIRECTIONAL_ITERATOR_TAG, const value_type>
     {
     public:
 
